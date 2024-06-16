@@ -1,0 +1,206 @@
+openapi: 3.0.0
+info:
+  title: Eco App API
+  description: API for Eco App to manage questions and user responses.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:4000
+    description: Local server
+
+paths:
+  /questions:
+    get:
+      summary: Retrieve a list of questions
+      description: Fetches all the questions available in the database.
+      responses:
+        "200":
+          description: A list of questions.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                      description: The unique identifier for the question.
+                      example: 60c72b2f4f1a256a8a7f65e8
+                    text:
+                      type: string
+                      description: The text of the question.
+                      example: Are you going to walk today instead of using the bus?
+
+  /responses:
+    post:
+      summary: Save a user response
+      description: Records a user's response to a question.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                  description: The unique identifier for the user.
+                  example: 60c72b2f4f1a256a8a7f65e8
+                questionId:
+                  type: string
+                  description: The unique identifier for the question.
+                  example: 60c72b2f4f1a256a8a7f65e9
+                response:
+                  type: string
+                  description: The user's response to the question.
+                  example: yes
+      responses:
+        "201":
+          description: User response saved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  acknowledged:
+                    type: boolean
+                    description: Acknowledgment status of the insertion operation.
+                    example: true
+                  insertedId:
+                    type: string
+                    description: The unique identifier of the inserted response.
+                    example: 60c72b2f4f1a256a8a7f65e9
+        "400":
+          description: Bad request, possibly due to invalid input.
+        "500":
+          description: Internal server error.
+
+  /choices:
+    get:
+      summary: Retrieve a list of choices
+      description: Fetches all the choices available in the database.
+      responses:
+        "200":
+          description: A list of choices.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                      description: The unique identifier for the choice.
+                      example: 60c72b2f4f1a256a8a7f65e8
+                    text:
+                      type: string
+                      description: The text of the choice.
+                      example: Going to work
+                    tasks:
+                      type: array
+                      description: List of task IDs associated with the choice.
+                      items:
+                        type: string
+                        example: 60c72b2f4f1a256a8a7f65eb
+
+  /userChoices:
+    post:
+      summary: Save user choices
+      description: Records a user's selected choices.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                  description: The unique identifier for the user.
+                  example: 60c72b2f4f1a256a8a7f65e8
+                choices:
+                  type: array
+                  description: List of choice IDs selected by the user.
+                  items:
+                    type: string
+                    example: 60c72b2f4f1a256a8a7f65eb
+      responses:
+        "200":
+          description: User choices saved successfully.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: User choices saved successfully
+        "400":
+          description: Bad request, possibly due to invalid input.
+        "404":
+          description: User not found.
+        "500":
+          description: Internal server error.
+
+  /tasks/{choiceId}:
+    get:
+      summary: Retrieve tasks for a choice
+      description: Fetches the tasks associated with a specific choice.
+      parameters:
+        - name: choiceId
+          in: path
+          required: true
+          description: The unique identifier for the choice.
+          schema:
+            type: string
+            example: 60c72b2f4f1a256a8a7f65eb
+      responses:
+        "200":
+          description: A list of tasks.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                      description: The unique identifier for the task.
+                      example: 60c72b2f4f1a256a8a7f65ec
+                    text:
+                      type: string
+                      description: The text of the task.
+                      example: Walk to work
+        "400":
+          description: Invalid choiceId format.
+        "404":
+          description: Choice not found.
+        "500":
+          description: Internal server error.
+
+  /data:
+    get:
+      summary: Retrieve data
+      description: Fetches data from the 'mycollection' collection.
+      responses:
+        "200":
+          description: Data retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                      description: The unique identifier for the document.
+                      example: 60c72b2f4f1a256a8a7f65e8
+                    name:
+                      type: string
+                      description: The name field of the document.
+                      example: Sample Name
+                    value:
+                      type: integer
+                      description: The value field of the document.
+                      example: 123
