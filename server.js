@@ -206,6 +206,26 @@ app.get('/data', async (req, res) => {
   }
 });
 
+app.get('/data/:name', async (req, res) => {
+  const userName = req.params.name;
+  
+  try {
+    const db = client.db(dbName);
+    const collection = db.collection('mycollection');
+    const user = await collection.findOne({ name: userName });
+    
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+    
+    res.json(user);
+  } catch (err) {
+    console.error('Error fetching user data from MongoDB:', err);
+    res.status(500).send(err.message);
+  }
+});
+
+
 app.listen(port, (err) => {
   if (err) {
     return console.error('Error starting server:', err);

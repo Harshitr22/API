@@ -1,7 +1,7 @@
 const { MongoClient } = require('mongodb');
 
 // Connection URL
-const url = 'mongodb+srv://w1915214:KpvTsFjHjYaTWVvv@cluster0.emuom40.mongodb.net/'; // Replace with your MongoDB connection string
+const url = 'mongodb+srv://w1915214:31ELEn2KFPEw2zha@cluster0.emuom40.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 const client = new MongoClient(url);
 
 // Database Name
@@ -18,7 +18,7 @@ async function main() {
 
     // Create documents to insert
     const docs = [
-      { name: 'Alice Johnson', rank: 1, points: 820 },
+      { name: 'Alice Johnson', rank: 1, points: 820, dailyAverage: 8, avgThisMonth: 12 },
       { name: 'Robert Smith', rank: 2, points: 750 },
       { name: 'Emma Davis', rank: 3, points: 700 },
       { name: 'Michael Brown', rank: 4, points: 660 },

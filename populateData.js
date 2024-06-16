@@ -1,6 +1,6 @@
 const { MongoClient, ObjectId } = require('mongodb');
 
-const url = 'mongodb+srv://w1915214:KpvTsFjHjYaTWVvv@cluster0.emuom40.mongodb.net/';
+const url = 'mongodb+srv://w1915214:31ELEn2KFPEw2zha@cluster0.emuom40.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 const client = new MongoClient(url);
 const dbName = 'mydatabase';
 
@@ -27,6 +27,21 @@ async function populateData() {
       { text: 'Use natural light instead of artificial' },
       { text: 'Minimize paper usage' },
       { text: 'Unplug unused electronics' }
+    ];
+
+    const cReduct = [
+      { text: "By walking 1km, you can reduce 33gm CO2eq"},
+      { text: "1 undisposable cup of coffee is equivalent to 1 metric cube of CO2 gas"},
+      { text: "Using public transportation can reduce 1.5 metric cubes of CO2 gas"},
+      { text: "Switch to reusable bags and cut down plastic waste, reducing your carbon footprint by up to 80%."},
+      { text: "Choose locally sourced products and cut down transportation emissions by up to 5%, reducing your carbon footprint."},
+      { text: "Avoid single-use plastics to decrease your carbon footprint and reduce waste by 50%."},
+      { text: "Showering under 5 minutes reduce CO2 emissions by up to 20 lbs per month"},
+      { text: "Using eco-friendly shower products reduces your carbon footprint by up to 25%."},
+      { text: "Turning ooff water when not needed reduce CO2 emissions by up to 90 lbs per year."},
+      { text: "Utilizing natural light cut your carbon footprint by up to 10%."},
+      { text: "Minimizing paper use reduces CO2 emissions by 10 lbs per ream"},
+      { text: "Unpluging unused electronics lowers your carbon footprint by 5-10%"},
     ];
 
     const result = await tasksCollection.insertMany(tasks);
