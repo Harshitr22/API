@@ -1,7 +1,7 @@
 const { MongoClient } = require('mongodb');
 
 // Connection URL
-const url = 'mongodb+srv://w1915214:31ELEn2KFPEw2zha@cluster0.emuom40.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const url = '';
 const client = new MongoClient(url);
 
 // Database Name

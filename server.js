@@ -19,7 +19,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // MongoDB connection URL
-const url = 'mongodb+srv://w1915214:31ELEn2KFPEw2zha@cluster0.emuom40.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const url = '';
 const client = new MongoClient(url);
 const dbName = 'mydatabase';
 
@@ -212,19 +212,19 @@ app.get('/data/:name', async (req, res) => {
   try {
     const db = client.db(dbName);
     const collection = db.collection('mycollection');
-    const user = await collection.findOne({ name: userName });
+    const users = await collection.find({ name: userName }).toArray();
     
-    if (!user) {
+    if (!users.length) {
       return res.status(404).send('User not found');
     }
     
-    res.json(user);
+    res.json(users);
   } catch (err) {
     console.error('Error fetching user data from MongoDB:', err);
     res.status(500).send(err.message);
   }
 });
-
+  
 
 app.listen(port, (err) => {
   if (err) {

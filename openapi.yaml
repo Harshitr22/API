@@ -207,7 +207,7 @@ paths:
   /data/{name}:
     get:
       summary: Retrieve user data by name
-      description: Fetches the data of a user by their name.
+      description: Fetches the data of users by their name.
       parameters:
         - name: name
           in: path
@@ -222,24 +222,26 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  _id:
-                    type: string
-                    description: The unique identifier for the user.
-                    example: 60c72b2f4f1a256a8a7f65e8
-                  name:
-                    type: string
-                    description: The name of the user.
-                    example: John Doe
-                  rank:
-                    type: integer
-                    description: The rank of the user.
-                    example: 1
-                  points:
-                    type: integer
-                    description: The points of the user.
-                    example: 820
+                type: array
+                items:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                      description: The unique identifier for the user.
+                      example: 60c72b2f4f1a256a8a7f65e8
+                    name:
+                      type: string
+                      description: The name of the user.
+                      example: John Doe
+                    rank:
+                      type: integer
+                      description: The rank of the user.
+                      example: 1
+                    points:
+                      type: integer
+                      description: The points of the user.
+                      example: 820
         "404":
           description: User not found.
         "500":
